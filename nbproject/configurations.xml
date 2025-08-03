@@ -4,6 +4,88 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="canlib" displayName="canlib" projectFiles="true">
+        <logicalFolder name=".github" displayName=".github" projectFiles="true">
+          <logicalFolder name="workflows" displayName="workflows" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="dspic33epxxxgp50x"
+                       displayName="dspic33epxxxgp50x"
+                       projectFiles="true">
+          <itemPath>canlib/dspic33epxxxgp50x/dspic33epxxxgp50x_can.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="mcp2515" displayName="mcp2515" projectFiles="true">
+          <itemPath>canlib/mcp2515/mcp_2515.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="message" displayName="message" projectFiles="true">
+          <itemPath>canlib/message/msg_actuator.h</itemPath>
+          <itemPath>canlib/message/msg_common.h</itemPath>
+          <itemPath>canlib/message/msg_general.h</itemPath>
+          <itemPath>canlib/message/msg_gps.h</itemPath>
+          <itemPath>canlib/message/msg_recovery.h</itemPath>
+          <itemPath>canlib/message/msg_sensor.h</itemPath>
+          <itemPath>canlib/message/msg_state_est.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="pic18f26k83" displayName="pic18f26k83" projectFiles="true">
+          <itemPath>canlib/pic18f26k83/pic18f26k83_can.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="scripts" displayName="scripts" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="stm32h7" displayName="stm32h7" projectFiles="true">
+          <itemPath>canlib/stm32h7/stm32h7_can.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="tests" displayName="tests" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="util" displayName="util" projectFiles="true">
+          <itemPath>canlib/util/can_rcv_buffer.h</itemPath>
+          <itemPath>canlib/util/can_tx_buffer.h</itemPath>
+          <itemPath>canlib/util/safe_ring_buffer.h</itemPath>
+          <itemPath>canlib/util/timing_util.h</itemPath>
+        </logicalFolder>
+        <itemPath>canlib/can.h</itemPath>
+        <itemPath>canlib/canlib.h</itemPath>
+        <itemPath>canlib/message_types.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="MCC Generated Files"
+                     displayName="MCC Generated Files"
+                     projectFiles="true">
+        <logicalFolder name="system" displayName="system" projectFiles="true">
+          <itemPath>mcc_generated_files/system/pins.h</itemPath>
+          <itemPath>mcc_generated_files/system/interrupt.h</itemPath>
+          <itemPath>mcc_generated_files/system/config_bits.h</itemPath>
+          <itemPath>mcc_generated_files/system/system.h</itemPath>
+          <itemPath>mcc_generated_files/system/clock.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="rocketlib" displayName="rocketlib" projectFiles="true">
+        <logicalFolder name=".github" displayName=".github" projectFiles="true">
+          <logicalFolder name="workflows" displayName="workflows" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="common" displayName="common" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="doc" displayName="doc" projectFiles="true">
+          <logicalFolder name="_static" displayName="_static" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="include" displayName="include" projectFiles="true">
+          <itemPath>rocketlib/include/common.h</itemPath>
+          <itemPath>rocketlib/include/electrical.h</itemPath>
+          <itemPath>rocketlib/include/i2c.h</itemPath>
+          <itemPath>rocketlib/include/low_pass_filter.h</itemPath>
+          <itemPath>rocketlib/include/pwm.h</itemPath>
+          <itemPath>rocketlib/include/timer.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="pic18f26k83" displayName="pic18f26k83" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="scripts" displayName="scripts" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="unit_tests" displayName="unit_tests" projectFiles="true">
+          <itemPath>rocketlib/unit_tests/low_pass_filter_test.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>platform.h</itemPath>
+      <itemPath>pwm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -32,17 +114,29 @@
         <itemPath>canlib/util/timing_util.c</itemPath>
         <itemPath>canlib/pic18f26k83/pic18f26k83_can.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="MCC Generated Files"
+                     displayName="MCC Generated Files"
+                     projectFiles="true">
+        <logicalFolder name="system" displayName="system" projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <itemPath>mcc_generated_files/system/src/config_bits.c</itemPath>
+            <itemPath>mcc_generated_files/system/src/clock.c</itemPath>
+            <itemPath>mcc_generated_files/system/src/interrupt.c</itemPath>
+            <itemPath>mcc_generated_files/system/src/system.c</itemPath>
+            <itemPath>mcc_generated_files/system/src/pins.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="rocketlib" projectFiles="true">
         <itemPath>rocketlib/pic18f26k83/timer.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
+      <itemPath>platform.c</itemPath>
+      <itemPath>pwm.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>canlib/message</Elem>
-    <Elem>canlib/util</Elem>
-    <Elem>canlib/pic18f26k83</Elem>
-    <Elem>rocketlib/pic18f26k83</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

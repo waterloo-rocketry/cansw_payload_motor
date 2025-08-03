@@ -1,50 +1,23 @@
 #include <xc.h>
 
+#include "mcc_generated_files/system/system.h"
+
 #include "canlib.h"
 #include "timer.h"
 #include "pwm.h"
+#include "platform.h"
 
 #define STATUS_CHECK_PERIOD 500
 
-// declare I/O pins
-#define LS_LEFT     PORTBbits.RB1
-#define LS_RIGHT    PORTBbits.RB2
-
-#define LED_GREEN   LATAbits.LA1
-#define LED_BLUE    LATAbits.LA0
-#define LED_RED     LATAbits.LA2
-#define LED_ON      0
-#define LED_OFF     1
-
-// declare servo constants
-#define SERVO_PWR       LATBbits.LATB5
-#define SERVO_IN        PORTBbits.RB3
-#define SERVO_STOP_PWM  1500            // microseconds    
-#define SERVO_RIGHT_PWM 700             // microseconds
-#define SERVO_LEFT_PWM  2300            // microseconds
-#define PWM_PERIOD      1000            // change later, place holder value
-
 #pragma config LVP = ON
-
 
 // memory pool for the CAN tx buffer
 uint8_t tx_pool[400];
 
 static void can_msg_handler(const can_msg_t *msg);
-void init_pins(void);
-void set_motor_pwm(uint16_t duty);
 
 int main(void) {
-    // SYSTEM_Initialize();
-
-    // Set up CAN TX
-    TRISC1 = 0;
-    RC1PPS = 0x33;
-
-    // Set up CAN RX
-    TRISC0 = 1;
-    ANSELC0 = 0;
-    CANRXPPS = 0b00010000;
+    SYSTEM_Initialize();
 
     // Set up CAN module
     can_timing_t can_setup;
@@ -80,8 +53,6 @@ int main(void) {
 
     // forever loop
     for (;;) {
-        
-        
         // CLRWDT();
          
         // periodically send board status
@@ -93,12 +64,12 @@ int main(void) {
 
         txb_heartbeat();
         
+        // limit switch detection
         if (LS_LEFT) {
             LED_BLUE = LED_ON;
         } else {
             LED_BLUE = LED_OFF;
         }
-        
         if (LS_RIGHT) {
             LED_RED = LED_ON;
         } else {
@@ -106,43 +77,6 @@ int main(void) {
         }
         
     }
-}
-
-void init_pins(void) {
-    // setup LED pins
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 0;
-    TRISAbits.TRISA2 = 0;
-    
-    ANSELAbits.ANSELA0 = 0;
-    ANSELAbits.ANSELA1 = 0;
-    ANSELAbits.ANSELA2 = 0;
-    
-    LED_GREEN = LED_OFF;
-    LED_BLUE = LED_OFF;
-    LED_RED = LED_OFF;
-    
-    // setup limit switch pins
-    TRISBbits.TRISB1 = 1;
-    TRISBbits.TRISB2 = 1;
-    
-    ANSELBbits.ANSELB1 = 0;
-    ANSELBbits.ANSELB2 = 0;
-    
-    // setup servo power pin
-    TRISBbits.TRISB5 = 0;
-    SERVO_PWR = 1;
-    
-    // setup servo pwm pin
-    TRISBbits.TRISB3 = 0;
-    ANSELBbits.ANSELB3 = 0;
-    
-    // turn on status LED to signal successful startup
-    LED_GREEN = LED_ON;
-}
-
-void set_motor_pwm(uint16_t duty) {
-    // pwm_set_duty_cycle(duty);
 }
 
 static void can_msg_handler(const can_msg_t *msg) {
@@ -173,9 +107,6 @@ static void can_msg_handler(const can_msg_t *msg) {
             break;
     }
 }
-
-// Remove line below once generate code with MCC
-#pragma config MVECEN = OFF
 
 static void __interrupt() interrupt_handler(void) {
     if (PIR5) {

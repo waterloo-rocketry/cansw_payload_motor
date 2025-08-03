@@ -9,10 +9,7 @@
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>canlib/message</sourceRootElem>
-                <sourceRootElem>canlib/util</sourceRootElem>
-                <sourceRootElem>canlib/pic18f26k83</sourceRootElem>
-                <sourceRootElem>rocketlib/pic18f26k83</sourceRootElem>
+                <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
