@@ -8,6 +8,7 @@
 #include "platform.h"
 
 #define STATUS_CHECK_PERIOD 500
+#define LIM_PERIOD 250
 
 #pragma config LVP = ON
 
@@ -39,6 +40,7 @@ int main(void) {
 
     uint32_t last_status_millis = millis();
     uint32_t last_mtr_pulse = millis();
+    uint32_t last_lim_millis = millis();
     
     // just for tests this should be can message
     SERVO_PWR = 1;
@@ -64,12 +66,25 @@ int main(void) {
         if (LS_LEFT) {
             LED_GREEN = LED_ON;
             pwm_period = 1;
+            
+            // dont want to spam can messages before it reverses
+            if ((millis() - last_lim_millis() > LIM_PERIOD)){
+                can_msg_t lim_stat_msg;
+                build_analog_data_msg(PRIO_MEDIUM, millis(), SENSOR_ENUM_MAX, 1, &lim_stat_msg);
+                txb_enqueue(&lim_stat_msg);
+            }
         } else {
             LED_GREEN = LED_OFF;
         }
         if (LS_RIGHT) {
             LED_RED = LED_ON;
             pwm_period = 2;
+            
+            if ((millis() - last_lim_millis() > LIM_PERIOD)){
+                can_msg_t lim_stat_msg;
+                build_analog_data_msg(PRIO_MEDIUM, millis(), SENSOR_ENUM_MAX, 2, &lim_stat_msg);
+                txb_enqueue(&lim_stat_msg);
+            }
         } else {
             LED_RED = LED_OFF;
         }
