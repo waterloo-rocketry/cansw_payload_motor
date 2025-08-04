@@ -24,7 +24,6 @@ void init_pins(void) {
     
     // setup servo power pin
     TRISB5 = 0;
-    SERVO_PWR = 1;
     
     // setup servo pwm pin
     TRISB3 = 0;
@@ -38,4 +37,16 @@ void init_pins(void) {
     TRISC0 = 1;
     ANSELC0 = 0;
     CANRXPPS = 0b00010000;
+}
+
+void toggle_blue_led() {
+    LED_BLUE ^= 1;
+}
+
+void toggle_green_led() {
+    LED_GREEN ^= 1;
+}
+
+void toggle_red_led() {
+    LED_RED ^= 1;
 }

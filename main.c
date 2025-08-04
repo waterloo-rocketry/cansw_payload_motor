@@ -16,10 +16,12 @@ uint8_t tx_pool[400];
 
 static void can_msg_handler(const can_msg_t *msg);
 
-static volatile uint8_t pwm_freq;
+uint8_t pwm_period = 1;
 
 int main(void) {
     SYSTEM_Initialize();
+    
+    init_pins();
 
     // Set up CAN module
     can_timing_t can_setup;
@@ -36,22 +38,10 @@ int main(void) {
     timer0_init();
 
     uint32_t last_status_millis = millis();
+    uint32_t last_mtr_pulse = millis();
     
-    
-    init_pins();
-    
-    // turn off LEDs for now
-    LED_GREEN = LED_OFF;
-    LED_BLUE = LED_OFF;
-    LED_RED = LED_OFF;
-    
-    // initialize pwm
-    // pwm_init(PWM_PERIOD);
-    // pwm_enable();
-    
-    // start moving servo motor
+    // just for tests this should be can message
     SERVO_PWR = 1;
-//    set_motor_pwm(SERVO_LEFT_PWM);
 
     // forever loop
     for (;;) {
@@ -62,21 +52,29 @@ int main(void) {
             can_msg_t board_stat_msg;
             build_general_board_status_msg(PRIO_MEDIUM, millis(), 0, 0, &board_stat_msg);
             txb_enqueue(&board_stat_msg);
+            
+            toggle_blue_led();
         }
-
-        txb_heartbeat();
+        
+        if (SERVO_PWR && (millis() - last_mtr_pulse) > pwm_period) {
+            SERVO_IN ^= 1;
+        }
         
         // limit switch detection
         if (LS_LEFT) {
-            LED_BLUE = LED_ON;
+            LED_GREEN = LED_ON;
+            pwm_period = 1;
         } else {
-            LED_BLUE = LED_OFF;
+            LED_GREEN = LED_OFF;
         }
         if (LS_RIGHT) {
             LED_RED = LED_ON;
+            pwm_period = 2;
         } else {
             LED_RED = LED_OFF;
         }
+        
+        txb_heartbeat();
         
     }
 }
@@ -105,6 +103,8 @@ static void can_msg_handler(const can_msg_t *msg) {
                 RESET();
             }
             break;
+        case MSG_ACTUATOR_CMD:
+            SERVO_PWR ^= 1;
         default:
             break;
     }

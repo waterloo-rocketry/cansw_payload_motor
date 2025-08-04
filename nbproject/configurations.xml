@@ -85,7 +85,6 @@
         </logicalFolder>
       </logicalFolder>
       <itemPath>platform.h</itemPath>
-      <itemPath>pwm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -132,7 +131,6 @@
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>platform.c</itemPath>
-      <itemPath>pwm.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -149,7 +147,7 @@
         <platformTool>snap</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>3.00</languageToolchainVersion>
-        <platform>4</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="PIC18F-K_DFP" vendor="Microchip" version="1.15.303"/>
