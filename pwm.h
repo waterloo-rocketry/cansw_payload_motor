@@ -13,7 +13,7 @@
 #define SERVO_LEFT_PWM  2300            // microseconds
 #define PWM_PERIOD      1000            // change later, place holder value
 
-void set_motor_pwm(uint16_t duty);
+void set_motor_pwm(uint8_t duty);
 
 #endif	/* PWM_H */
 

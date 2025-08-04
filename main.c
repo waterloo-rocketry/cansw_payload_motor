@@ -16,6 +16,8 @@ uint8_t tx_pool[400];
 
 static void can_msg_handler(const can_msg_t *msg);
 
+static volatile uint8_t pwm_freq;
+
 int main(void) {
     SYSTEM_Initialize();
 
